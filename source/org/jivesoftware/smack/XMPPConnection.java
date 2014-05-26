@@ -59,7 +59,7 @@ import java.util.List;
 /**
  * Creates a socket connection to a XMPP server. This is the default connection
  * to a Jabber server and is specified in the XMPP Core (RFC 3920).
- * 
+ *
  * @see Connection
  * @author Matt Tucker
  */
@@ -139,7 +139,7 @@ public class XMPPConnection extends Connection {
     /**
      * Creates a new XMPP connection in the same way {@link #XMPPConnection(String,CallbackHandler)} does, but
      * with no callback handler for password prompting of the keystore.  This will work
-     * in most cases, provided the client is not required to provide a certificate to 
+     * in most cases, provided the client is not required to provide a certificate to
      * the server.
      *
      * @param serviceName the name of the XMPP server to connect to; e.g. <tt>example.com</tt>.
@@ -155,7 +155,7 @@ public class XMPPConnection extends Connection {
     /**
      * Creates a new XMPP connection in the same way {@link #XMPPConnection(ConnectionConfiguration,CallbackHandler)} does, but
      * with no callback handler for password prompting of the keystore.  This will work
-     * in most cases, provided the client is not required to provide a certificate to 
+     * in most cases, provided the client is not required to provide a certificate to
      * the server.
      *
      *
@@ -325,7 +325,7 @@ public class XMPPConnection extends Connection {
     public Roster getRoster() {
         // synchronize against login()
         synchronized(this) {
-            // if connection is authenticated the roster is already set by login() 
+            // if connection is authenticated the roster is already set by login()
             // or a previous call to getRoster()
             if (!isAuthenticated() || isAnonymous()) {
                 if (roster == null) {
@@ -902,9 +902,9 @@ public class XMPPConnection extends Connection {
 
     /**
      * Returns the compression handler that can be used for one compression methods offered by the server.
-     * 
+     *
      * @return a instance of XMPPInputOutputStream or null if no suitable instance was found
-     * 
+     *
      */
     private XMPPInputOutputStream maybeGetCompressionHandler() {
         if (compressionMethods != null) {
@@ -1110,7 +1110,7 @@ public class XMPPConnection extends Connection {
         if (packetWriter == null) {
             return;
         }
-        while (packetWriter.maybeBusy(250)) {
+        while (isConnected() && packetWriter.maybeBusy(250)) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -1124,7 +1124,7 @@ public class XMPPConnection extends Connection {
         if (packetWriter == null) {
             return;
         }
-        while (packetWriter.maybeBusy(10)) {
+        while (isConnected() && packetWriter.maybeBusy(10)) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
