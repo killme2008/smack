@@ -1110,9 +1110,13 @@ public class XMPPConnection extends Connection {
         if (packetWriter == null) {
             return;
         }
-        while (isConnected() && packetWriter.maybeBusy(250)) {
+        int times = 0;
+        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(250)) {
             try {
-                Thread.sleep(100);
+                if(times < 20)
+					Thread.yield();
+                else
+					Thread.sleep(50);
             } catch (InterruptedException e) {
                 //ignore
                 ;
@@ -1124,11 +1128,15 @@ public class XMPPConnection extends Connection {
         if (packetWriter == null) {
             return;
         }
-        while (isConnected() && packetWriter.maybeBusy(10)) {
+        int times = 0;
+        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(10)) {
             try {
-                Thread.sleep(100);
+                if(times < 20)
+					Thread.yield();
+                else
+					Thread.sleep(50);
             } catch (InterruptedException e) {
-                // ignore
+                //ignore
                 ;
             }
         }
