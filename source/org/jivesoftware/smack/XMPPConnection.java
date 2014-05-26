@@ -1111,7 +1111,7 @@ public class XMPPConnection extends Connection {
             return;
         }
         int times = 0;
-        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(250)) {
+        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(1)) {
             try {
                 if(times < 20)
 					Thread.yield();
@@ -1129,7 +1129,7 @@ public class XMPPConnection extends Connection {
             return;
         }
         int times = 0;
-        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(10)) {
+        while (isConnected() && times++ < 100 && packetWriter.maybeBusy(1)) {
             try {
                 if(times < 20)
 					Thread.yield();
